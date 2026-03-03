@@ -1,0 +1,84 @@
+{
+  "projectType": "general",
+  "projectName": "Mintlify Starter Kit",
+  "projectDescription": "A comprehensive template for building beautiful documentation sites with Mintlify.",
+  "theme": "mint",
+  "primaryColor": "#16A34A",
+  "lightColor": "#07C983",
+  "darkColor": "#15803D",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Guides",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "index",
+              "quickstart",
+              "development"
+            ]
+          },
+          {
+            "group": "Customization",
+            "pages": [
+              "essentials/settings",
+              "essentials/navigation"
+            ]
+          },
+          {
+            "group": "Writing Content",
+            "pages": [
+              "essentials/markdown",
+              "essentials/code",
+              "essentials/images",
+              "essentials/reusable-snippets"
+            ]
+          },
+          {
+            "group": "AI Tools",
+            "pages": [
+              "ai-tools/cursor",
+              "ai-tools/claude-code",
+              "ai-tools/windsurf"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "API Documentation",
+            "pages": [
+              "api-reference/introduction"
+            ]
+          },
+          {
+            "group": "Endpoint Examples",
+            "pages": [
+              "api-reference/endpoint/get",
+              "api-reference/endpoint/create",
+              "api-reference/endpoint/delete",
+              "api-reference/endpoint/webhook"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "MDX-based content authoring with YAML frontmatter",
+    "OpenAPI integration for API documentation",
+    "AI tool integration guides for Cursor, Claude Code, and Windsurf",
+    "Customizable themes and color schemes",
+    "Rich component library for documentation",
+    "Local development preview with Mintlify CLI"
+  ],
+  "publicApiSurface": [
+    "docs.json configuration schema",
+    "MDX components (Card, CardGroup, Accordion, Steps, etc.)",
+    "OpenAPI spec support",
+    "mint CLI commands (dev, update, broken-links)"
+  ]
+}
