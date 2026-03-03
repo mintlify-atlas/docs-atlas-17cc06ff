@@ -4,13 +4,23 @@ description: 'The navigation field in docs.json defines the pages that go in the
 icon: 'map'
 ---
 
-The navigation menu is the list of links on every website.
+The navigation menu is the list of links on every website that helps users discover and access your documentation pages. In Mintlify, you control this through the `navigation` field in your `docs.json` file.
 
-You will likely update `docs.json` every time you add a new page. Pages do not show up automatically.
+<Info>
+You will likely update `docs.json` every time you add a new page. Pages do not show up automatically in the navigation.
+</Info>
 
 ## Navigation syntax
 
-Our navigation syntax is recursive which means you can make nested navigation groups. You don't need to include `.mdx` in page names.
+Our navigation syntax is recursive which means you can make nested navigation groups. This allows you to create sophisticated multi-level navigation structures that scale with your documentation.
+
+<Note>
+You don't need to include `.mdx` in page names when referencing them in `docs.json`.
+</Note>
+
+### Basic navigation structure
+
+Here's a simple navigation configuration with a single tab and group:
 
 <CodeGroup>
 
@@ -54,17 +64,29 @@ Our navigation syntax is recursive which means you can make nested navigation gr
 
 </CodeGroup>
 
+### Navigation hierarchy
+
+Mintlify's navigation follows this structure:
+
+1. **Tabs** - Top-level sections (e.g., "Docs", "API Reference", "Guides")
+2. **Groups** - Categories within tabs (e.g., "Getting Started", "Advanced")
+3. **Pages** - Individual documentation pages or nested groups
+
+<Tip>
+Use nested groups when you have subsections that logically belong together. This keeps your navigation clean and helps users find related content.
+</Tip>
+
 ## Folders
 
-Simply put your MDX files in folders and update the paths in `docs.json`.
+Simply put your MDX files in folders and update the paths in `docs.json`. Mintlify automatically maps your folder structure to URL paths.
 
-For example, to have a page at `https://yoursite.com/your-folder/your-page` you would make a folder called `your-folder` containing an MDX file called `your-page.mdx`.
+For example, to have a page at `https://yoursite.com/your-folder/your-page` you would:
 
-<Warning>
+1. Make a folder called `your-folder`
+2. Create an MDX file called `your-page.mdx` inside that folder
+3. Reference it in `docs.json` as `"your-folder/your-page"`
 
-You cannot use `api` for the name of a folder unless you nest it inside another folder. Mintlify uses Next.js which reserves the top-level `api` folder for internal server calls. A folder name such as `api-reference` would be accepted.
-
-</Warning>
+### Example with folders
 
 ```json Navigation With Folder
 "navigation": {
@@ -82,6 +104,161 @@ You cannot use `api` for the name of a folder unless you nest it inside another 
 }
 ```
 
+<Warning>
+
+You cannot use `api` for the name of a folder unless you nest it inside another folder. Mintlify uses Next.js which reserves the top-level `api` folder for internal server calls. A folder name such as `api-reference` would be accepted.
+
+</Warning>
+
 ## Hidden pages
 
 MDX files not included in `docs.json` will not show up in the sidebar but are accessible through the search bar and by linking directly to them.
+
+This is useful for:
+
+- Draft pages you're still working on
+- Landing pages that shouldn't appear in navigation
+- Specialized pages accessed only through direct links
+- Archived content that should remain searchable
+
+<Expandable title="Example: Hidden page use case">
+
+You might create a page at `special-offer.mdx` that you only want users to access through a specific marketing campaign link. By not including it in `docs.json`, it won't clutter your navigation but remains fully functional and searchable.
+
+</Expandable>
+
+## Multi-tab navigation
+
+For larger documentation sites, you can organize content into multiple tabs. Each tab can have its own set of groups and pages:
+
+```json
+"navigation": {
+  "tabs": [
+    {
+      "tab": "Documentation",
+      "groups": [
+        {
+          "group": "Getting Started",
+          "pages": ["introduction", "quickstart"]
+        }
+      ]
+    },
+    {
+      "tab": "API Reference",
+      "groups": [
+        {
+          "group": "Endpoints",
+          "pages": ["api-reference/authentication", "api-reference/users"]
+        }
+      ]
+    },
+    {
+      "tab": "Guides",
+      "groups": [
+        {
+          "group": "Tutorials",
+          "pages": ["guides/first-steps", "guides/advanced"]
+        }
+      ]
+    }
+  ]
+}
+```
+
+<Info>
+Tabs appear horizontally at the top of your navigation sidebar, making it easy for users to switch between major sections of your documentation.
+</Info>
+
+## Complex navigation example
+
+Here's a comprehensive example showing multiple tabs, nested groups, and folder organization:
+
+```json
+"navigation": {
+  "tabs": [
+    {
+      "tab": "Documentation",
+      "groups": [
+        {
+          "group": "Getting Started",
+          "pages": [
+            "introduction",
+            "quickstart",
+            {
+              "group": "Installation",
+              "pages": [
+                "installation/npm",
+                "installation/yarn",
+                "installation/docker"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "Core Concepts",
+          "pages": [
+            "concepts/architecture",
+            "concepts/data-model"
+          ]
+        }
+      ]
+    },
+    {
+      "tab": "API Reference",
+      "groups": [
+        {
+          "group": "REST API",
+          "pages": [
+            "api/authentication",
+            "api/users",
+            "api/projects"
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+## Best practices
+
+<Tip>
+**Keep groups focused**: Each navigation group should contain related pages that users would logically look for together.
+</Tip>
+
+<Tip>
+**Use descriptive names**: Group and tab names should clearly indicate what content users will find there.
+</Tip>
+
+<Tip>
+**Limit nesting depth**: While nested navigation is powerful, try to keep it to 2-3 levels maximum for better user experience.
+</Tip>
+
+<Tip>
+**Order matters**: Place your most important pages first in each group. Users typically scan from top to bottom.
+</Tip>
+
+## Troubleshooting
+
+### Page not showing in navigation
+
+If your page isn't appearing in the navigation:
+
+1. Verify the page path in `docs.json` matches your file structure exactly
+2. Make sure you didn't include the `.mdx` extension
+3. Check that the MDX file exists at the specified path
+4. Restart your dev server with `mint dev`
+
+### Navigation not updating
+
+Changes to `docs.json` require restarting your development server. After modifying navigation:
+
+```bash
+# Stop the current server (Ctrl+C)
+# Restart it
+mint dev
+```
+
+<Info>
+Run `mint dev` to preview your navigation changes locally before deploying.
+</Info>

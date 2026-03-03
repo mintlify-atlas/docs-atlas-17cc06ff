@@ -1,94 +1,225 @@
 ---
-title: 'Development'
-description: 'Preview changes locally to update your docs'
+title: "Development"
+description: "Set up your local development environment and preview documentation changes in real time"
 ---
 
 <Info>
-  **Prerequisites**:
+  **Prerequisites**
   - Node.js version 19 or higher
-  - A docs repository with a `docs.json` file
+  - A documentation repository with a `docs.json` configuration file
 </Info>
 
-Follow these steps to install and run Mintlify on your operating system.
+## Install and run Mintlify
+
+Follow these steps to get the Mintlify CLI running on your local machine.
 
 <Steps>
-<Step title="Install the Mintlify CLI">
-
-```bash
-npm i -g mint
-```
-</Step>
-
-<Step title="Preview locally">
-
-Navigate to your docs directory where your `docs.json` file is located, and run the following command:
-
-```bash
-mint dev
-```
-
-A local preview of your documentation will be available at `http://localhost:3000`.
-
-</Step>
+  <Step title="Install the Mintlify CLI">
+    
+    Install the CLI globally using npm:
+    
+    ```bash
+    npm i -g mint
+    ```
+    
+    This makes the `mint` command available from anywhere on your system.
+    
+  </Step>
+  
+  <Step title="Start local preview">
+    
+    Navigate to your documentation directory (where your `docs.json` file is located) and run:
+    
+    ```bash
+    mint dev
+    ```
+    
+    Your documentation will be available at `http://localhost:3000`.
+    
+    <Tip>
+      The preview server automatically reloads when you save changes to your files. No manual refresh needed!
+    </Tip>
+    
+  </Step>
 </Steps>
 
-## Custom ports
+## Advanced configuration
 
-By default, Mintlify uses port 3000. You can customize the port Mintlify runs on by using the `--port` flag. For example, to run Mintlify on port 3333, use this command:
+### Custom ports
+
+By default, Mintlify runs on port 3000. You can specify a different port using the `--port` flag:
 
 ```bash
 mint dev --port 3333
 ```
 
-If you attempt to run Mintlify on a port that's already in use, it will use the next available port:
+If the specified port is already in use, Mintlify automatically tries the next available port:
 
-```md
+```
 Port 3000 is already in use. Trying 3001 instead.
 ```
 
-## Mintlify versions
+<Note>
+  This automatic port selection ensures you can always preview your docs, even if other services are running.
+</Note>
 
-Please note that each CLI release is associated with a specific version of Mintlify. If your local preview does not align with the production version, please update the CLI:
+### Keeping Mintlify up to date
+
+Each CLI release corresponds to a specific Mintlify version. If your local preview doesn't match production, update the CLI:
 
 ```bash
 npm mint update
 ```
 
-## Validating links
+<Warning>
+  Running outdated CLI versions may cause rendering differences between local and production environments.
+</Warning>
 
-The CLI can assist with validating links in your documentation. To identify any broken links, use the following command:
+## Link validation
+
+The CLI includes a built-in link checker to identify broken links in your documentation:
 
 ```bash
 mint broken-links
 ```
 
-## Deployment
+This command:
+- Scans all pages in your documentation
+- Checks internal links between pages
+- Validates external URLs
+- Reports any broken or unreachable links
 
-If the deployment is successful, you should see the following:
+<Tip>
+  Run this command before deploying to catch broken links early and maintain documentation quality.
+</Tip>
+
+## Deployment verification
+
+When you push changes to your repository, the Mintlify GitHub app handles deployment automatically. A successful deployment shows:
 
 <Frame>
-  <img src="/images/checks-passed.png" alt="Screenshot of a deployment confirmation message that says All checks have passed." style={{ borderRadius: '0.5rem' }} />
+  <img 
+    src="/images/checks-passed.png" 
+    alt="Screenshot showing deployment confirmation: All checks have passed" 
+    style={{ borderRadius: '0.5rem' }} 
+  />
 </Frame>
 
-## Code formatting
+<Info>
+  You can monitor deployment status in your repository's **Actions** tab on GitHub.
+</Info>
 
-We suggest using extensions on your IDE to recognize and format MDX. If you're a VSCode user, consider the [MDX VSCode extension](https://marketplace.visualstudio.com/items?itemName=unifiedjs.vscode-mdx) for syntax highlighting, and [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) for code formatting.
+## Development tools
+
+### Code formatting and syntax
+
+We recommend using IDE extensions for the best MDX development experience:
+
+<CardGroup cols={2}>
+  <Card title="MDX syntax highlighting" icon="highlighter">
+    Install the [MDX VSCode extension](https://marketplace.visualstudio.com/items?itemName=unifiedjs.vscode-mdx) for syntax highlighting and IntelliSense.
+  </Card>
+  
+  <Card title="Code formatting" icon="wand-magic-sparkles">
+    Use [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) to automatically format MDX files on save.
+  </Card>
+</CardGroup>
 
 ## Troubleshooting
 
+Common issues and solutions when working with the Mintlify CLI:
+
 <AccordionGroup>
   <Accordion title='Error: Could not load the "sharp" module using the darwin-arm64 runtime'>
-
-    This may be due to an outdated version of node. Try the following:
-    1. Remove the currently-installed version of the CLI: `npm remove -g mint`
-    2. Upgrade to Node v19 or higher.
-    3. Reinstall the CLI: `npm i -g mint`
+    
+    This error typically occurs with outdated Node.js versions. To fix it:
+    
+    <Steps>
+      <Step title="Remove the current CLI">
+        ```bash
+        npm remove -g mint
+        ```
+      </Step>
+      
+      <Step title="Upgrade Node.js">
+        Upgrade to Node.js version 19 or higher. We recommend using [nvm](https://github.com/nvm-sh/nvm) to manage Node versions:
+        
+        ```bash
+        nvm install 20
+        nvm use 20
+        ```
+      </Step>
+      
+      <Step title="Reinstall the CLI">
+        ```bash
+        npm i -g mint
+        ```
+      </Step>
+    </Steps>
+    
   </Accordion>
-
-  <Accordion title="Issue: Encountering an unknown error">
   
-    Solution: Go to the root of your device and delete the `~/.mintlify` folder. Then run `mint dev` again.
+  <Accordion title="Issue: Encountering an unknown error">
+    
+    If you encounter unexpected errors or the CLI behaves erratically:
+    
+    1. Navigate to your home directory root
+    2. Delete the `~/.mintlify` folder:
+    
+    ```bash
+    rm -rf ~/.mintlify
+    ```
+    
+    3. Run `mint dev` again to regenerate the configuration
+    
+    <Warning>
+      This resets your local Mintlify cache. Your documentation content remains unchanged.
+    </Warning>
+    
+  </Accordion>
+  
+  <Accordion title="Issue: Changes not appearing in preview">
+    
+    If your edits aren't reflected in the preview:
+    
+    1. Check that you're editing files in the correct directory
+    2. Ensure you saved the file (check for unsaved indicators in your editor)
+    3. Try stopping the server (Ctrl+C) and running `mint dev` again
+    4. Clear your browser cache and refresh the page
+    
+  </Accordion>
+  
+  <Accordion title="Issue: Port conflicts">
+    
+    If you see port-related errors:
+    
+    - Specify a different port: `mint dev --port 4000`
+    - Or stop the process using port 3000 and try again
+    - Use `lsof -i :3000` (macOS/Linux) to identify what's using the port
+    
   </Accordion>
 </AccordionGroup>
 
-Curious about what changed in the latest CLI version? Check out the [CLI changelog](https://www.npmjs.com/package/mintlify?activeTab=versions).
+## Stay updated
+
+Curious about what changed in the latest CLI version? Check out the [CLI changelog on npm](https://www.npmjs.com/package/mintlify?activeTab=versions) to see new features, bug fixes, and improvements.
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card 
+    title="Write your first page" 
+    icon="pen-to-square" 
+    href="/essentials/markdown"
+  >
+    Learn how to create documentation pages using MDX and Mintlify components.
+  </Card>
+  
+  <Card 
+    title="Customize navigation" 
+    icon="map" 
+    href="/essentials/navigation"
+  >
+    Structure your documentation with groups, tabs, and navigation links.
+  </Card>
+</CardGroup>

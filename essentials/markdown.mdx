@@ -1,10 +1,15 @@
 ---
-title: 'Markdown syntax'
-description: 'Text, title, and styling in standard markdown'
-icon: 'text-size'
+title: MDX and markdown guide
+description: Learn how to write content using standard markdown syntax and formatting in your Mintlify documentation
 ---
 
-## Titles
+Mintlify supports standard markdown syntax for formatting text, creating headers, adding links, and styling your documentation content. You can combine markdown with MDX components for rich, interactive documentation.
+
+## Titles and headings
+
+Use markdown headings to structure your documentation and create a clear content hierarchy.
+
+### Section headers
 
 Best used for section headers.
 
@@ -12,7 +17,7 @@ Best used for section headers.
 ## Titles
 ```
 
-### Subtitles
+### Subsection headers
 
 Best used for subsection headers.
 
@@ -21,14 +26,14 @@ Best used for subsection headers.
 ```
 
 <Tip>
-
 Each **title** and **subtitle** creates an anchor and also shows up on the table of contents on the right.
-
 </Tip>
 
 ## Text formatting
 
 We support most markdown formatting. Simply add `**`, `_`, or `~` around text to format it.
+
+### Basic formatting
 
 | Style         | How to write it   | Result          |
 | ------------- | ----------------- | --------------- |
@@ -38,6 +43,8 @@ We support most markdown formatting. Simply add `**`, `_`, or `~` around text to
 
 You can combine these. For example, write `**_bold and italic_**` to get **_bold and italic_** text.
 
+### Superscript and subscript
+
 You need to use HTML to write superscript and subscript text. That is, add `<sup>` or `<sub>` around your text.
 
 | Text Size   | How to write it          | Result                 |
@@ -45,15 +52,40 @@ You need to use HTML to write superscript and subscript text. That is, add `<sup
 | Superscript | `<sup>superscript</sup>` | <sup>superscript</sup> |
 | Subscript   | `<sub>subscript</sub>`   | <sub>subscript</sub>   |
 
+<Info>
+HTML tags work seamlessly within markdown files, giving you additional formatting flexibility when needed.
+</Info>
+
 ## Linking to pages
 
 You can add a link by wrapping text in `[]()`. You would write `[link to google](https://google.com)` to [link to google](https://google.com).
 
-Links to pages in your docs need to be root-relative. Basically, you should include the entire folder path. For example, `[link to text](/writing-content/text)` links to the page "Text" in our components section.
+<Tabs>
+  <Tab title="Root-relative links">
+    Links to pages in your docs need to be root-relative. Basically, you should include the entire folder path.
 
-Relative links like `[link to text](../text)` will open slower because we cannot optimize them as easily.
+    ```md
+    [link to text](/writing-content/text)
+    ```
+
+    This links to the page "Text" in the writing-content section.
+  </Tab>
+  <Tab title="Relative links">
+    Relative links like `[link to text](../text)` will open slower because we cannot optimize them as easily.
+
+    ```md
+    [link to text](../text)
+    ```
+
+    <Warning>
+    Use root-relative links for better performance.
+    </Warning>
+  </Tab>
+</Tabs>
 
 ## Blockquotes
+
+Blockquotes are useful for highlighting important information or quotes from external sources.
 
 ### Singleline
 
@@ -77,12 +109,20 @@ To create a blockquote, add a `>` in front of a paragraph.
 > The Witch bade her clean the pots and kettles and sweep the floor and keep the fire fed with wood.
 ```
 
-### LaTeX
+<Note>
+Use `>` at the start of each line for multiline blockquotes, including empty lines.
+</Note>
 
-Mintlify supports [LaTeX](https://www.latex-project.org) through the Latex component.
+## LaTeX
+
+Mintlify supports [LaTeX](https://www.latex-project.org) through the Latex component for mathematical expressions and formulas.
 
 <Latex>8 x (vk x H1 - H2) = (0,1)</Latex>
 
 ```md
 <Latex>8 x (vk x H1 - H2) = (0,1)</Latex>
 ```
+
+<Tip>
+Use the Latex component for complex mathematical notation in technical documentation.
+</Tip>

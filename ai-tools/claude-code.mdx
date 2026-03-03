@@ -41,3 +41,53 @@ Set up Claude Code to help you write and maintain your Mintlify documentation.
   ```
 </Step>
 </Steps>
+
+## Using Claude Code with Mintlify
+
+<Tip>
+Claude Code can read your entire documentation structure and suggest improvements across multiple pages at once.
+</Tip>
+
+### Example commands
+
+Here are some useful prompts to try with Claude Code:
+
+<CodeGroup>
+```bash Draft a new page
+claude "Create a new getting started guide for API authentication"
+```
+
+```bash Add components
+claude "Add appropriate Mintlify components to quickstart.mdx"
+```
+
+```bash Update navigation
+claude "Add the new API page to docs.json navigation"
+```
+</CodeGroup>
+
+<Info>
+Claude Code works best when your `AGENTS.md` file includes clear project-specific instructions and terminology.
+</Info>
+
+## Advanced usage
+
+### Batch operations
+
+You can ask Claude Code to perform operations across multiple files:
+
+```bash
+claude "Update all API reference pages to use the new code snippet format"
+```
+
+### Content review
+
+Use Claude Code to review documentation quality:
+
+```bash
+claude "Review the authentication docs for clarity and completeness"
+```
+
+<Note>
+Always preview your changes with `mint dev` before deploying to production.
+</Note>

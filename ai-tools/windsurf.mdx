@@ -37,3 +37,64 @@ Set up Windsurf's Cascade AI assistant to help you write and maintain your Mintl
   Open a file and use Cascade to draft and edit documentation.
 </Step>
 </Steps>
+
+## Using Cascade with Mintlify
+
+<Tip>
+Cascade can understand your documentation structure and suggest consistent patterns across all your pages.
+</Tip>
+
+### Cascade modes
+
+Windsurf's Cascade offers different modes for documentation work:
+
+- **Chat mode** - Ask questions and get guidance
+- **Edit mode** - Make direct changes to files
+- **Flow mode** - Multi-step documentation tasks
+
+<Info>
+Flow mode is particularly useful for creating multiple related pages or updating navigation structures.
+</Info>
+
+### Example workflows
+
+<CodeGroup>
+```text Create a new section
+"Create a new API reference section with pages for all REST endpoints"
+```
+
+```text Update components
+"Replace all Note components with appropriate Info or Warning components based on content"
+```
+
+```text Improve clarity
+"Review this page and simplify complex sentences while keeping technical accuracy"
+```
+</CodeGroup>
+
+## Best practices
+
+### Project context
+
+Make sure your `AGENTS.md` file includes:
+
+- Product-specific terminology
+- Preferred component usage patterns
+- Content boundaries and what to avoid documenting
+
+<Note>
+Cascade reads `AGENTS.md` automatically, so keeping it updated ensures consistent documentation quality.
+</Note>
+
+### Iterative refinement
+
+Use Cascade iteratively:
+
+1. Draft content with Cascade
+2. Preview with `mint dev`
+3. Refine based on preview
+4. Ask Cascade to adjust specific sections
+
+<Tip>
+You can reference specific components or sections by highlighting them before invoking Cascade.
+</Tip>

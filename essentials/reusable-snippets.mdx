@@ -1,110 +1,168 @@
 ---
-title: "Reusable snippets"
-description: "Reusable, custom snippets to keep content in sync"
-icon: "recycle"
+title: Reusable snippets guide
+description: Create reusable, custom snippets to keep content synchronized across multiple pages
 ---
 
-import SnippetIntro from '/snippets/snippet-intro.mdx';
-
-<SnippetIntro />
+Reusable snippets help you maintain consistency across your documentation by allowing you to write content once and reuse it in multiple locations. When you update a snippet, all pages using it are automatically updated.
 
 ## Creating a custom snippet
 
 **Pre-condition**: You must create your snippet file in the `snippets` directory.
 
 <Note>
-  Any page in the `snippets` directory will be treated as a snippet and will not
-  be rendered into a standalone page. If you want to create a standalone page
-  from the snippet, import the snippet into another file and call it as a
-  component.
+Any page in the `snippets` directory will be treated as a snippet and will not be rendered into a standalone page. If you want to create a standalone page from the snippet, import the snippet into another file and call it as a component.
 </Note>
 
 ### Default export
 
-1. Add content to your snippet file that you want to re-use across multiple
-   locations. Optionally, you can add variables that can be filled in via props
-   when you import the snippet.
+The simplest way to create a reusable snippet is using the default export pattern.
 
-```mdx snippets/my-snippet.mdx
-Hello world! This is my content I want to reuse across pages. My keyword of the
-day is {word}.
-```
+<Tabs>
+  <Tab title="Step 1: Create snippet">
+    Add content to your snippet file that you want to re-use across multiple locations. Optionally, you can add variables that can be filled in via props when you import the snippet.
 
-<Warning>
-  The content that you want to reuse must be inside the `snippets` directory in
-  order for the import to work.
-</Warning>
+    ```mdx snippets/my-snippet.mdx
+    Hello world! This is my content I want to reuse across pages. My keyword of the
+    day is {word}.
+    ```
 
-2. Import the snippet into your destination file.
+    <Warning>
+    The content that you want to reuse must be inside the `snippets` directory in order for the import to work.
+    </Warning>
+  </Tab>
+  <Tab title="Step 2: Import snippet">
+    Import the snippet into your destination file.
 
-```mdx destination-file.mdx
----
-title: My title
-description: My Description
----
+    ```mdx destination-file.mdx
+    ---
+    title: My title
+    description: My Description
+    ---
 
-import MySnippet from '/snippets/path/to/my-snippet.mdx';
+    import MySnippet from '/snippets/path/to/my-snippet.mdx';
 
-## Header
+    ## Header
 
-Lorem impsum dolor sit amet.
+    Lorem impsum dolor sit amet.
 
-<MySnippet word="bananas" />
-```
+    <MySnippet word="bananas" />
+    ```
+  </Tab>
+</Tabs>
+
+<Tip>
+Use props to make your snippets dynamic and customizable for different contexts.
+</Tip>
 
 ### Reusable variables
 
-1. Export a variable from your snippet file:
+Export and reuse specific variables across multiple pages.
 
-```mdx snippets/path/to/custom-variables.mdx
-export const myName = 'my name';
+<Tabs>
+  <Tab title="Step 1: Export variables">
+    Export a variable from your snippet file:
 
-export const myObject = { fruit: 'strawberries' };
-```
+    ```mdx snippets/path/to/custom-variables.mdx
+    export const myName = 'my name';
 
-2. Import the snippet from your destination file and use the variable:
+    export const myObject = { fruit: 'strawberries' };
+    ```
+  </Tab>
+  <Tab title="Step 2: Import and use">
+    Import the snippet from your destination file and use the variable:
 
-```mdx destination-file.mdx
----
-title: My title
-description: My Description
----
+    ```mdx destination-file.mdx
+    ---
+    title: My title
+    description: My Description
+    ---
 
-import { myName, myObject } from '/snippets/path/to/custom-variables.mdx';
+    import { myName, myObject } from '/snippets/path/to/custom-variables.mdx';
 
-Hello, my name is {myName} and I like {myObject.fruit}.
-```
+    Hello, my name is {myName} and I like {myObject.fruit}.
+    ```
+  </Tab>
+</Tabs>
+
+<Info>
+Reusable variables are perfect for maintaining consistent values like product names, version numbers, or common configuration values across your documentation.
+</Info>
 
 ### Reusable components
 
-1. Inside your snippet file, create a component that takes in props by exporting
-   your component in the form of an arrow function.
+Create more complex reusable components that accept multiple props.
 
-```mdx snippets/custom-component.mdx
-export const MyComponent = ({ title }) => (
-  <div>
-    <h1>{title}</h1>
-    <p>... snippet content ...</p>
-  </div>
-);
-```
+<Tabs>
+  <Tab title="Step 1: Create component">
+    Inside your snippet file, create a component that takes in props by exporting your component in the form of an arrow function.
 
-<Warning>
-  MDX does not compile inside the body of an arrow function. Stick to HTML
-  syntax when you can or use a default export if you need to use MDX.
-</Warning>
+    ```mdx snippets/custom-component.mdx
+    export const MyComponent = ({ title }) => (
+      <div>
+        <h1>{title}</h1>
+        <p>... snippet content ...</p>
+      </div>
+    );
+    ```
 
-2. Import the snippet into your destination file and pass in the props
+    <Warning>
+    MDX does not compile inside the body of an arrow function. Stick to HTML syntax when you can or use a default export if you need to use MDX.
+    </Warning>
+  </Tab>
+  <Tab title="Step 2: Import and render">
+    Import the snippet into your destination file and pass in the props:
 
-```mdx destination-file.mdx
----
-title: My title
-description: My Description
----
+    ```mdx destination-file.mdx
+    ---
+    title: My title
+    description: My Description
+    ---
 
-import { MyComponent } from '/snippets/custom-component.mdx';
+    import { MyComponent } from '/snippets/custom-component.mdx';
 
-Lorem ipsum dolor sit amet.
+    Lorem ipsum dolor sit amet.
 
-<MyComponent title={'Custom title'} />
-```
+    <MyComponent title={'Custom title'} />
+    ```
+  </Tab>
+</Tabs>
+
+## Use cases
+
+Reusable snippets are ideal for various documentation scenarios:
+
+<Card title="Common use cases" icon="lightbulb">
+  - **API credentials setup** - Reuse authentication instructions across API endpoints
+  - **Prerequisites** - Share common setup requirements across multiple guides
+  - **Warning messages** - Maintain consistent warning text throughout docs
+  - **Product versions** - Keep version numbers synchronized
+  - **Code examples** - Share boilerplate code across tutorials
+  - **Contact information** - Display consistent support details
+</Card>
+
+## Best practices
+
+<Tabs>
+  <Tab title="Organization">
+    - Keep snippets in the `/snippets` directory
+    - Use descriptive file names
+    - Organize snippets into subdirectories by category
+    - Document what each snippet does
+  </Tab>
+  <Tab title="Content design">
+    - Keep snippets focused on a single purpose
+    - Use props for customization rather than creating multiple similar snippets
+    - Avoid overly complex snippets that are hard to maintain
+    - Test snippets in multiple contexts
+  </Tab>
+  <Tab title="Maintenance">
+    - Regularly audit which pages use each snippet
+    - Be cautious when editing widely-used snippets
+    - Consider the impact of changes on all pages using the snippet
+    - Use version control to track snippet changes
+  </Tab>
+</Tabs>
+
+<Note>
+When you update a snippet, the changes automatically propagate to all pages that import it, ensuring consistency across your entire documentation.
+</Note>

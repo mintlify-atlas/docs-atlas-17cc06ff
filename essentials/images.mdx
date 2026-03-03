@@ -1,7 +1,6 @@
 ---
-title: 'Images and embeds'
-description: 'Add image, video, and other HTML elements'
-icon: 'image'
+title: Image handling guide
+description: Add images, videos, and other HTML elements to your documentation
 ---
 
 <img
@@ -9,25 +8,67 @@ icon: 'image'
   src="https://mintlify-assets.b-cdn.net/bigbend.jpg"
 />
 
-## Image
+Images and visual content help make your documentation more engaging and easier to understand. Mintlify supports multiple ways to add images and embed media.
 
-### Using Markdown
+## Images
 
-The [markdown syntax](https://www.markdownguide.org/basic-syntax/#images) lets you add images using the following code
+You can add images using markdown syntax or HTML for more customization options.
+
+### Using markdown
+
+The [markdown syntax](https://www.markdownguide.org/basic-syntax/#images) lets you add images using the following code:
 
 ```md
 ![title](/path/image.jpg)
 ```
 
-Note that the image file size must be less than 5MB. Otherwise, we recommend hosting on a service like [Cloudinary](https://cloudinary.com/) or [S3](https://aws.amazon.com/s3/). You can then use that URL and embed.
+<Note>
+The image file size must be less than 5MB. Otherwise, we recommend hosting on a service like [Cloudinary](https://cloudinary.com/) or [S3](https://aws.amazon.com/s3/).
+</Note>
 
-### Using embeds
+### Using HTML embeds
 
-To get more customizability with images, you can also use [embeds](/writing-content/embed) to add images
+To get more customizability with images, you can also use HTML `<img>` tags to add images with custom styling:
 
 ```html
 <img height="200" src="/path/image.jpg" />
 ```
+
+<Tabs>
+  <Tab title="Basic image">
+    ```html
+    <img src="/path/image.jpg" />
+    ```
+    Simple image with default styling.
+  </Tab>
+  <Tab title="Custom size">
+    ```html
+    <img height="200" src="/path/image.jpg" />
+    ```
+    Set specific dimensions for your image.
+  </Tab>
+  <Tab title="Rounded corners">
+    ```html
+    <img style={{ borderRadius: '0.5rem' }} src="/path/image.jpg" />
+    ```
+    Add rounded corners for a polished look.
+  </Tab>
+</Tabs>
+
+## Image hosting
+
+For larger images or better performance, consider using a CDN or cloud storage service:
+
+<Card title="Recommended hosting services" icon="cloud">
+  - [Cloudinary](https://cloudinary.com/) - Image optimization and CDN
+  - [AWS S3](https://aws.amazon.com/s3/) - Scalable cloud storage
+  - [Imgur](https://imgur.com/) - Simple image hosting
+  - [GitHub](https://github.com) - Host images in your repository
+</Card>
+
+<Tip>
+Using a CDN ensures fast image loading times for users around the world.
+</Tip>
 
 ## Embeds and HTML elements
 
@@ -44,11 +85,9 @@ To get more customizability with images, you can also use [embeds](/writing-cont
 
 <br />
 
-<Tip>
-
+<Info>
 Mintlify supports [HTML tags in Markdown](https://www.markdownguide.org/basic-syntax/#html). This is helpful if you prefer HTML tags to Markdown syntax, and lets you create documentation with infinite flexibility.
-
-</Tip>
+</Info>
 
 ### iFrames
 
@@ -57,3 +96,68 @@ Loads another HTML page within the document. Most commonly used for embedding vi
 ```html
 <iframe src="https://www.youtube.com/embed/4KzFe50RQkQ"> </iframe>
 ```
+
+<CodeGroup>
+
+```html YouTube
+<iframe
+  width="560"
+  height="315"
+  src="https://www.youtube.com/embed/VIDEO_ID"
+  title="YouTube video player"
+  frameBorder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+></iframe>
+```
+
+```html Vimeo
+<iframe
+  src="https://player.vimeo.com/video/VIDEO_ID"
+  width="640"
+  height="360"
+  frameBorder="0"
+  allow="autoplay; fullscreen; picture-in-picture"
+  allowFullScreen
+></iframe>
+```
+
+```html Loom
+<iframe
+  src="https://www.loom.com/embed/VIDEO_ID"
+  frameBorder="0"
+  webkitallowfullscreen
+  mozallowfullscreen
+  allowFullScreen
+  style={{ width: '100%', height: '400px' }}
+></iframe>
+```
+
+</CodeGroup>
+
+<Warning>
+When embedding content from external sources, ensure the source is trusted and the content is appropriate for your documentation.
+</Warning>
+
+## Best practices
+
+<Tabs>
+  <Tab title="Performance">
+    - Keep image file sizes under 5MB
+    - Use appropriate image formats (JPEG for photos, PNG for graphics)
+    - Consider using WebP for better compression
+    - Host large images on a CDN
+  </Tab>
+  <Tab title="Accessibility">
+    - Always include descriptive alt text
+    - Use meaningful file names
+    - Ensure sufficient color contrast
+    - Don't rely solely on images to convey information
+  </Tab>
+  <Tab title="Styling">
+    - Use consistent styling across all images
+    - Add rounded corners for a modern look
+    - Ensure images are responsive
+    - Consider dark mode compatibility
+  </Tab>
+</Tabs>

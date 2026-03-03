@@ -1,20 +1,51 @@
 ---
-title: 'Code blocks'
-description: 'Display inline code and code blocks'
-icon: 'code'
+title: Code block guide
+description: Display inline code and syntax-highlighted code blocks in your documentation
 ---
+
+Code blocks are essential for technical documentation. Mintlify provides powerful syntax highlighting and code formatting capabilities for over 100 programming languages.
 
 ## Inline code
 
 To denote a `word` or `phrase` as code, enclose it in backticks (`).
 
-```
+```md
 To denote a `word` or `phrase` as code, enclose it in backticks (`).
 ```
 
+<Tip>
+Use inline code formatting for file names, commands, function names, and short code snippets within sentences.
+</Tip>
+
 ## Code blocks
 
-Use [fenced code blocks](https://www.markdownguide.org/extended-syntax/#fenced-code-blocks) by enclosing code in three backticks and follow the leading ticks with the programming language of your snippet to get syntax highlighting. Optionally, you can also write the name of your code after the programming language.
+Use [fenced code blocks](https://www.markdownguide.org/extended-syntax/#fenced-code-blocks) by enclosing code in three backticks and follow the leading ticks with the programming language of your snippet to get syntax highlighting.
+
+### Basic code block
+
+Add the programming language after the opening backticks for syntax highlighting:
+
+```java
+class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+```
+
+````md
+```java
+class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+```
+````
+
+### Code block with filename
+
+Optionally, you can also write the name of your code file after the programming language:
 
 ```java HelloWorld.java
 class HelloWorld {
@@ -33,3 +64,86 @@ class HelloWorld {
 }
 ```
 ````
+
+<Info>
+Displaying the filename helps readers understand the context and location of the code.
+</Info>
+
+## Multiple code examples
+
+Use the CodeGroup component to show multiple related code examples with tabs:
+
+<CodeGroup>
+
+```javascript JavaScript
+function greet(name) {
+  console.log(`Hello, ${name}!`);
+}
+
+greet("World");
+```
+
+```python Python
+def greet(name):
+    print(f"Hello, {name}!")
+
+greet("World")
+```
+
+```java Java
+class Greeting {
+    public static void greet(String name) {
+        System.out.println("Hello, " + name + "!");
+    }
+    
+    public static void main(String[] args) {
+        greet("World");
+    }
+}
+```
+
+</CodeGroup>
+
+<Note>
+CodeGroup is perfect for showing the same functionality across different programming languages or different approaches to solving the same problem.
+</Note>
+
+## Supported languages
+
+Mintlify supports syntax highlighting for over 100 programming languages including:
+
+<Tabs>
+  <Tab title="Popular languages">
+    - JavaScript/TypeScript
+    - Python
+    - Java
+    - C/C++/C#
+    - Ruby
+    - Go
+    - Rust
+    - PHP
+    - Swift
+    - Kotlin
+  </Tab>
+  <Tab title="Web technologies">
+    - HTML
+    - CSS/SCSS
+    - JSX/TSX
+    - Vue
+    - JSON
+    - XML
+    - YAML
+  </Tab>
+  <Tab title="Shell & config">
+    - Bash
+    - PowerShell
+    - SQL
+    - GraphQL
+    - Dockerfile
+    - TOML
+  </Tab>
+</Tabs>
+
+<Tip>
+Simply specify the language name after the opening backticks to enable syntax highlighting for that language.
+</Tip>
